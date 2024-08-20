@@ -6,16 +6,16 @@ def quick_sort(unsorted_list: List[int]) -> List[int]:
     if len(unsorted_list) <= 1:
         return unsorted_list
 
-    mid = unsorted_list[0]
+    pivot = unsorted_list[0]
 
     left_half = []
     right_half = []
     middle = []
 
     for x in unsorted_list:
-        if x < mid:
+        if x < pivot:
             left_half.append(x)
-        elif x > mid:
+        elif x > pivot:
             right_half.append(x)
         else:
             middle.append(x)
