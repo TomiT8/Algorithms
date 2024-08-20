@@ -1,18 +1,17 @@
 from typing import List
 
 
-def quick_sort(unsorted_list: List[int]) -> List[int]:
-    # print(unsorted_list)
-    if len(unsorted_list) <= 1:
-        return unsorted_list
+def quick_sort(arr: List[int]) -> List[int]:
+    if len(arr) <= 1:
+        return arr
 
-    pivot = unsorted_list[0]
+    pivot = arr[0]
 
     left_half = []
     right_half = []
     middle = []
 
-    for x in unsorted_list:
+    for x in arr:
         if x < pivot:
             left_half.append(x)
         elif x > pivot:
