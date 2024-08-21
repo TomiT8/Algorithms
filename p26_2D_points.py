@@ -11,3 +11,8 @@ Třídění kladných celých čísel podle počtu celočíselných dělitelů:
 BONUS: Optimalizujte hledání pomocí dynamického programování tak, abyste pro zadané číslo hledali počet dělitelů jenom jednou.
 """
 
+def abs_2d_points_sort(arr):
+    return arr
+
+if __name__ == "__main__":
+    numbers = [(1, 0), (1, 1), (2, 5), (3, 2), (4, 5), (0, 1), (5, 1)]
