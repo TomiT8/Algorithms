@@ -12,6 +12,8 @@ Každá třída by měla mít vlastní reprezentaci řetězce __str(self)__.
 """
 
 import abc
+from collections import deque
+import time
 
 
 class Client(abc.ABC):
@@ -78,10 +80,29 @@ class CashRegister:
 
     def process(self) -> Client:
         client = self.queue.pop()
-        print(f"Process client: {client}")
+        # print(f"Process client: {client}")
         return client
 
 
+"""Úkol 2.4: Rychlejší pokladna
+Pro implementaci fronty není použití seznamu optimální. Musíme odstranit položku ze začátku, a to je nákladná operace,
+která vyžaduje kopírování všech položek seznamu. Odebraní prvku ve finále trvá úměrně délce seznamu.
+
+Abychom operaci s frontou optimalizovali, vytvoříme novou třídu s využitím typu deque (obousměrná fronta),
+který je k dispozici v modulu collections. deque má metody známé ze seznamu, tj. append a pop. Má také metody
+popleft a appendleft. Chcete-li implementovat chování fronty, použijte metody append a popleft nebo appendleft a pop.
+"""
+
+class FasterCashRegister(CashRegister):
+
+    def __init__(self):
+        super().__init__()
+        self.queue = deque()
+
+    def process(self):
+        client = self.queue.popleft()
+        # print(f"Process client: {client}")
+        return client
 
 
 if __name__ == '__main__':
@@ -101,3 +122,30 @@ if __name__ == '__main__':
     cr.process()
     cr.process()
     cr.process()
+
+
+"""Úkol 2.5 Ověřte, že RychlaFronta je opravdu rychlejší
+Porovnejte rychlost obou přístupů a ověřte, jestli je FasterCashRegister opravdu rychlejší než Pokladna.
+Ideálně využijte modul timeit, která je vhodnější, ale můžete vyzkoušet také modul time.
+"""
+
+start = time.time()
+
+cr = CashRegister()
+ran = 400000
+for i in range(ran):
+    cr.add_client(client1)
+for i in range(ran):
+    cr.process()
+print(f"CashRegister: {time.time() - start}")
+
+start = time.time()
+
+cr = FasterCashRegister()
+for i in range(ran):
+    cr.add_client(client1)
+for i in range(ran):
+    cr.process()
+print(f"FasterCashRegister: {time.time() - start}")
+
+print(f"Count client: {ran}")
