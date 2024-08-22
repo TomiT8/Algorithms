@@ -15,18 +15,15 @@ Například:
 "
 """
 
-
 def rpn(nstring: str) -> int:
-    tokens = nstring.split()
-
     stack = []
 
-    for t in tokens:
-        if t not in "+-*/":
+    for t in nstring.split():
+        if t.isdigit():
             stack.append(int(t))
         else:
-            num2 = int(stack.pop())
-            num1 = int(stack.pop())
+            num2 = stack.pop()
+            num1 = stack.pop()
         if t == "+":
             stack.append(num1 + num2)
         if t == "-":
@@ -35,11 +32,10 @@ def rpn(nstring: str) -> int:
             stack.append(num1 * num2)
         if t == "/":
             stack.append(num1 / num2)
-
     return stack.pop()
 
 
 if __name__ == '__main__':
     strings = ["1 2 +", "8 2 /", "5 1 2 + 4 * + 3 -"]
-    for string in strings:
-        print(f"'{string}' -> {rpn(string)}")
+    for s in strings:
+        print(f"'{s}' -> {rpn(s)}")
